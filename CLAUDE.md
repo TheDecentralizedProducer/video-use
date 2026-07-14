@@ -71,6 +71,12 @@ files back into `raw/`.
   environment. Without it, transcription will fail.
 - Run `./setup.sh` to verify or repair the full toolchain.
 
+## Scripts
+
+| Script | What it does |
+|--------|-------------|
+| `./scripts/bg-composite.sh <video.mp4> <url-or-image>` | Remove background from video, screenshot a URL (or use a local image), composite subject over it, render 9:16 MP4. Output: `projects/<slug>/renders/composite.mp4`. |
+
 ## What NOT to do
 
 - Do not render before Ian approves the proposed cut.
