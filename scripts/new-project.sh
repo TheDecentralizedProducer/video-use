@@ -38,10 +38,10 @@ mkdir -p \
   "$PROJECT/edit/verify/captions" \
   "$PROJECT/edit/verify/grade" \
   "$PROJECT/edit/verify/frames" \
-  "$PROJECT/edit/verify/overlays/hook" \
-  "$PROJECT/edit/verify/overlays/article" \
-  "$PROJECT/edit/verify/overlays/pip" \
-  "$PROJECT/edit/verify/overlays/alpha" \
+  "$PROJECT/edit/verify/hook" \
+  "$PROJECT/edit/verify/article" \
+  "$PROJECT/edit/verify/overlays" \
+  "$PROJECT/edit/verify/alpha" \
   "$PROJECT/edit/verify/subject" \
   "$PROJECT/edit/verify/scripts" \
   "$PROJECT/compositions" \
@@ -53,10 +53,10 @@ touch \
   "$PROJECT/edit/verify/captions/.gitkeep" \
   "$PROJECT/edit/verify/grade/.gitkeep" \
   "$PROJECT/edit/verify/frames/.gitkeep" \
-  "$PROJECT/edit/verify/overlays/hook/.gitkeep" \
-  "$PROJECT/edit/verify/overlays/article/.gitkeep" \
-  "$PROJECT/edit/verify/overlays/pip/.gitkeep" \
-  "$PROJECT/edit/verify/overlays/alpha/.gitkeep" \
+  "$PROJECT/edit/verify/hook/.gitkeep" \
+  "$PROJECT/edit/verify/article/.gitkeep" \
+  "$PROJECT/edit/verify/overlays/.gitkeep" \
+  "$PROJECT/edit/verify/alpha/.gitkeep" \
   "$PROJECT/edit/verify/subject/.gitkeep" \
   "$PROJECT/compositions/.gitkeep" \
   "$PROJECT/renders/.gitkeep"

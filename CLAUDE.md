@@ -66,11 +66,10 @@ projects/
         captions/               ← subtitle rendering, font, position checks
         grade/                  ← color grade comparisons
         frames/                 ← frame extractions from cuts/base videos
-        overlays/
-          hook/                 ← hook graphic overlay tests
-          article/              ← article background and PiP tests
-          pip/                  ← picture-in-picture mockups
-          alpha/                ← transparency / alpha channel checks
+        hook/                   ← hook graphic overlay tests
+        article/                ← article background and PiP tests
+        overlays/               ← generic overlay mockups and composites
+        alpha/                  ← transparency / alpha channel checks
         subject/                ← cutout and background-removal checks
         scripts/                ← .mjs helpers that generate verify assets (tracked)
     compositions/               ← hyperframes HTML + meta (tracked); renders gitignored

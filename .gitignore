@@ -72,6 +72,7 @@ projects/*/edit/verify/**/*.png
 projects/*/edit/verify/**/*.jpg
 projects/*/edit/verify/node_modules/
 projects/*/edit/verify/package-lock.json
+projects/*/edit/verify/package.json
 
 # Session artifacts (root-level from old flat layout)
 edit/
