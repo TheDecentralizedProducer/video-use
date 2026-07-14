@@ -43,12 +43,23 @@ yarn.lock
 media/
 *.log
 
-# Vendored tools — setup.sh re-clones and builds these
+# Vendored tools — setup.sh re-clones and builds these, except patched files
 tools/
+!tools/video-use/helpers/render.py
 
 # Project raw footage and final renders (large files — keep local)
 projects/*/raw/
+projects/*/raw-test/
 projects/*/renders/
+
+# Composition render outputs (binary, large — source HTML is tracked)
+projects/*/compositions/*/render*.mp4
+projects/*/compositions/*/render*.webm
+projects/*/compositions/*/render*.mov
+projects/*/compositions/*/hook_overlay.webm
+projects/*/compositions/*/base*.mp4
+projects/*/compositions/*/clips_*/
+projects/*/compositions/*/.venv/
 
 # Session artifacts
 edit/

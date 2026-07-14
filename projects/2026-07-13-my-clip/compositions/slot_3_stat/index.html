@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: transparent;
+      }
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+
+      /* Card: 1020×230, x:30, y:1310 */
+      #stat-card {
+        position: absolute;
+        left: 30px;
+        top: 1310px;
+        width: 1020px;
+        height: 230px;
+        background: #0f172a;
+        border-radius: 14px;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      /* Top accent bar */
+      #accent-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #1791f6, #30c4d7, #4bf1b7);
+      }
+
+      /* Row layout inside card */
+      #card-inner {
+        position: absolute;
+        top: 3px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 16px;
+      }
+
+      /* Left: label section ~280px */
+      #section-label {
+        width: 280px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding-right: 20px;
+        position: relative;
+      }
+
+      #section-label::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 10%;
+        height: 80%;
+        width: 1px;
+        background: rgba(226, 232, 240, 0.125);
+      }
+
+      .label-line {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 3px;
+        color: #94a3b8;
+        line-height: 1.3;
+        text-transform: uppercase;
+      }
+
+      /* Center-left: big stat ~360px */
+      #section-stat {
+        width: 360px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px;
+      }
+
+      #counter {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 900;
+        font-size: 96px;
+        line-height: 1;
+        background: linear-gradient(90deg, #1791f6, #30c4d7, #4bf1b7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        white-space: nowrap;
+      }
+
+      /* Center-right: description, remaining width */
+      #section-desc {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding-left: 16px;
+        gap: 6px;
+      }
+
+      #desc-primary {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        color: #e2e8f0;
+        line-height: 1.2;
+      }
+
+      #desc-secondary {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+        color: #94a3b8;
+        line-height: 1.2;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div
+        id="stat-card"
+        class="clip"
+        data-start="0"
+        data-duration="10"
+        data-track-index="1"
+      >
+        <div id="accent-bar"></div>
+        <div id="card-inner">
+          <div id="section-label">
+            <span class="label-line">OPPOSITION</span>
+            <span class="label-line">LETTER</span>
+          </div>
+          <div id="section-stat">
+            <span id="counter">0</span>
+          </div>
+          <div id="section-desc">
+            <span id="desc-primary">industry professionals</span>
+            <span id="desc-secondary">signed against the merger</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const card = document.getElementById("stat-card");
+      const counterEl = document.getElementById("counter");
+
+      // t=0 → 0.4s: card slides up 80px + fades in
+      tl.fromTo(
+        card,
+        { opacity: 0, y: 80 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+        0
+      );
+
+      // t=0.4 → 1.8s: count up 0 → 5000, append "+" on completion
+      const counterObj = { n: 0 };
+      tl.to(
+        counterObj,
+        {
+          n: 5000,
+          duration: 1.4,
+          ease: "power2.out",
+          onUpdate: function () {
+            const progress = this.progress();
+            counterEl.textContent =
+              Math.round(counterObj.n).toLocaleString() +
+              (progress >= 1 ? "+" : "");
+          },
+          onComplete: function () {
+            counterEl.textContent = "5,000+";
+          },
+        },
+        0.4
+      );
+
+      // t=9.0 → 10.0s: fade out
+      tl.to(card, { opacity: 0, duration: 1.0, ease: "power1.in" }, 9.0);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: 'TikTok Sans';
+        src: url('https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok-sans/TikTokSans-Bold.woff2') format('woff2');
+        font-weight: 700;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      body {
+        font-family: 'TikTok Sans', 'Helvetica Neue', Arial, system-ui;
+        font-weight: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="3"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div
+        id="hook-block"
+        class="clip"
+        data-start="0"
+        data-duration="3"
+        data-track-index="1"
+        style="
+          position: absolute;
+          top: 80px;
+          left: 0;
+          width: 1080px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+          opacity: 1;
+        "
+      >
+        <span style="
+          display: inline-block;
+          background: #ffffff;
+          border-radius: 8px;
+          padding: 10px 20px;
+          font-family: 'TikTok Sans', 'Helvetica Neue', Arial, system-ui;
+          font-weight: 700;
+          font-size: 72px;
+          line-height: 1.0;
+          color: #0f0f0f;
+          white-space: nowrap;
+        ">12 states just sued</span>
+        <span style="
+          display: inline-block;
+          background: #ffffff;
+          border-radius: 8px;
+          padding: 10px 20px;
+          font-family: 'TikTok Sans', 'Helvetica Neue', Arial, system-ui;
+          font-weight: 700;
+          font-size: 72px;
+          line-height: 1.0;
+          color: #0f0f0f;
+          white-space: nowrap;
+        ">to stop the Paramount</span>
+        <span style="
+          display: inline-block;
+          background: #ffffff;
+          border-radius: 8px;
+          padding: 10px 20px;
+          font-family: 'TikTok Sans', 'Helvetica Neue', Arial, system-ui;
+          font-weight: 700;
+          font-size: 72px;
+          line-height: 1.0;
+          color: #0f0f0f;
+          white-space: nowrap;
+        ">+ Warner Bros. merger</span>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // t=0.00–2.70s: hold at opacity 1 (instant appear)
+      // t=2.70–3.00s: fade out (ease in, 0.3s)
+      tl.to("#hook-block", { opacity: 0, duration: 0.3, ease: "power1.in" }, 2.7);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

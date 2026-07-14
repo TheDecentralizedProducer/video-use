@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        background: transparent;
+        overflow: hidden;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+
+      /* ── Card ─────────────────────────────────────────────────────────── */
+      #card {
+        position: absolute;
+        left: 30px;
+        top: 1310px;
+        width: 1020px;
+        height: 230px;
+        background: #0f172a;
+        border-radius: 14px;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      /* Top accent gradient bar */
+      #card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #1791f6, #30c4d7, #4bf1b7);
+        z-index: 1;
+      }
+
+      /* ── Inner layout ─────────────────────────────────────────────────── */
+      .inner {
+        position: absolute;
+        /* start below accent bar */
+        top: 3px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      /* Row 1 — Labels */
+      .label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .label-text {
+        color: #94a3b8;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      /* Row 2 — Pills */
+      .pills-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 1;
+        gap: 0;
+      }
+
+      .pill {
+        width: 145px;
+        height: 52px;
+        background: #1a2744;
+        border: 1px solid rgba(23, 145, 246, 0.25);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pill-text {
+        color: #e2e8f0;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        text-align: center;
+        white-space: nowrap;
+        position: relative;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      /* Strike line inside MAX+PARAM. pill */
+      #strike {
+        position: absolute;
+        top: 50%;
+        left: -10%;
+        width: 120%;
+        height: 2px;
+        background: #cc2200;
+        /* transform set entirely by GSAP via fromTo — no CSS transform here */
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      /* Row 3 — Count */
+      .count-row {
+        flex-shrink: 0;
+      }
+
+      #count-text {
+        color: #94a3b8;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!--
+      Root composition wrapper — required by HyperFrames.
+      The card itself is a clip spanning the full 9s.
+    -->
+    <div
+      id="card"
+      class="clip"
+      data-composition-id="main"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="9"
+      data-track-index="0"
+    >
+      <div class="inner">
+
+        <!-- Row 1: labels -->
+        <div class="label-row">
+          <span class="label-text">Acquisition Windows</span>
+          <span class="label-text">Global</span>
+        </div>
+
+        <!-- Row 2: pills -->
+        <div class="pills-row">
+          <div class="pill" id="pill-0"><span class="pill-text">Netflix</span></div>
+          <div class="pill" id="pill-1"><span class="pill-text">Prime</span></div>
+          <div class="pill" id="pill-2"><span class="pill-text">Apple TV+</span></div>
+          <div class="pill" id="pill-3"><span class="pill-text">Hulu</span></div>
+          <div class="pill" id="pill-4"><span class="pill-text">Peacock</span></div>
+          <div class="pill" id="pill-5"
+               data-layout-allow-overflow="true"
+               data-layout-allow-occlusion="true">
+            <span class="pill-text">MAX+PARAM.</span>
+            <div id="strike"></div>
+          </div>
+        </div>
+
+        <!-- Row 3: count -->
+        <div class="count-row">
+          <span id="count-text">5 Remaining Buyers</span>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const tl = gsap.timeline({ paused: true });
+
+      /* ── t=0 → 1.0s: card slides up 80px + fades in ─────────────────── */
+      tl.fromTo(
+        "#card",
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: "power3.out",
+        },
+        0
+      );
+
+      /* ── t=1.0 → 1.8s: pills stagger fade in left→right ─────────────── */
+      tl.to(
+        ["#pill-0", "#pill-1", "#pill-2", "#pill-3", "#pill-4", "#pill-5"],
+        {
+          opacity: 1,
+          duration: 0.3,
+          stagger: 0.12,
+          ease: "power2.out",
+        },
+        1.0
+      );
+
+      /* ── t=1.8s: count text fades in (after last pill at ~1.0 + 5*0.12 + 0.3 = ~1.9) */
+      tl.to(
+        "#count-text",
+        {
+          opacity: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        1.9
+      );
+
+      /* ── t=2.5 → 3.0s: MAX+PARAM. pill struck ───────────────────────── */
+      // Border turns red, background dims, opacity drops to 0.25
+      tl.to(
+        "#pill-5",
+        {
+          borderColor: "#cc2200",
+          backgroundColor: "#1a0a0a",
+          opacity: 0.25,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        2.5
+      );
+
+      // Simultaneously draw the diagonal strike line
+      // fromTo avoids CSS transform conflict; yPercent centers on top:50%
+      tl.fromTo(
+        "#strike",
+        { scaleX: 0, rotation: -12, yPercent: -50 },
+        {
+          scaleX: 1,
+          rotation: -12,
+          yPercent: -50,
+          duration: 0.4,
+          ease: "power2.inOut",
+          transformOrigin: "left center",
+        },
+        2.5
+      );
+
+      /* ── t=3.0 → 8.0s: hold — nothing to animate ───────────────────── */
+      tl.addLabel("hold", 3.0);
+
+      /* ── t=8.0 → 9.0s: fade out entire card ────────────────────────── */
+      tl.to(
+        "#card",
+        {
+          opacity: 0,
+          duration: 1.0,
+          ease: "power2.in",
+        },
+        8.0
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

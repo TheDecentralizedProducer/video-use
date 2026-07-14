@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>News Card — CBS Article</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: transparent;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      /* ── Card container — positioned in the safe overlay band ── */
+      #card-wrap {
+        position: absolute;
+        left: 30px;
+        top: 1310px;
+        width: 1020px;
+        height: 230px;
+      }
+
+      #news-card {
+        position: relative;
+        width: 1020px;
+        height: 230px;
+        background: #0f172a;
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+      }
+
+      /* ── Top gradient accent bar ── */
+      #accent-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(to right, #1791f6, #30c4d7, #4bf1b7);
+        z-index: 10;
+        border-radius: 14px 14px 0 0;
+      }
+
+      /* ── Left: article image ── */
+      #img-col {
+        flex: 0 0 auto;
+        width: 200px;
+        height: 230px;
+        margin-left: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      #article-img {
+        height: 200px;
+        width: auto;
+        max-width: 433px;
+        object-fit: cover;
+        border-radius: 8px 0 0 8px;
+        display: block;
+      }
+
+      /* ── Right: text content ── */
+      #text-col {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 18px 20px 18px 18px;
+        gap: 0;
+      }
+
+      /* ── Source badge ── */
+      #source-badge {
+        display: inline-flex;
+        align-items: center;
+        align-self: flex-start;
+        background: rgba(23, 145, 246, 0.12);
+        border: 1px solid #1791f6;
+        border-radius: 4px;
+        padding: 3px 10px;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 2px;
+        color: #4bf1b7;
+        line-height: 1;
+        white-space: nowrap;
+        margin-bottom: 8px;
+      }
+
+      /* ── Headline ── */
+      #headline {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 1.3;
+        color: #ffffff;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 6px;
+      }
+
+      /* ── Date ── */
+      #datestamp {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+        color: #94a3b8;
+        line-height: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="slot-1-article"
+      data-start="0"
+      data-duration="8"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div
+        id="card-wrap"
+        class="clip"
+        data-start="0"
+        data-duration="8"
+        data-track-index="1"
+      >
+        <div id="news-card">
+          <div id="accent-bar"></div>
+
+          <!-- Left: article screenshot -->
+          <div id="img-col">
+            <img
+              id="article-img"
+              src="./article_headline_crop.png"
+              alt="Article headline crop"
+            />
+          </div>
+
+          <!-- Right: source badge + headline + date -->
+          <div id="text-col">
+            <div id="source-badge">CBS NEWS</div>
+            <div id="headline">12 states sue to block Paramount–Warner Bros. merger</div>
+            <div id="datestamp">July 13, 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // t=0 → 0.4s: slide up 80px + fade in (easeOutCubic ≈ power3.out)
+      tl.fromTo(
+        "#card-wrap",
+        { y: 80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+        0
+      );
+
+      // t=0.4s → 7.0s: hold (GSAP holds last value — no tween needed)
+
+      // t=7.0s → 8.0s: fade out
+      tl.to(
+        "#card-wrap",
+        { opacity: 0, duration: 1.0, ease: "power1.inOut" },
+        7.0
+      );
+
+      window.__timelines["slot-1-article"] = tl;
+
+      // Seek to frame 0 so the renderer captures the correct initial state
+      tl.seek(0);
+    </script>
+  </body>
+</html>
