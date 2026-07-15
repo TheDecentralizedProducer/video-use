@@ -96,9 +96,12 @@ tracked in git so they can be re-run.
 | Script | What it does |
 |--------|-------------|
 | `./scripts/new-project.sh <slug>` | Scaffold the full project folder structure (including all `verify/` subfolders) for a new clip. Date-prefixes the slug automatically. |
+| `./scripts/video-bg-composite.sh <subject.mp4> <background.mp4> [--audio both\|subject\|bg]` | Remove background from subject, composite over a video background. Audio modes: `both` mixes tracks (bg ducked to 30%), `subject` keeps only voice, `bg` keeps only background sound. |
+| `./scripts/voiceover.sh <background.mp4> <voice.mp4> [--audio replace\|mix] [--bg-vol 0.2]` | Lay a talking track over a video. `replace` drops background audio (default); `mix` blends both with bg ducked to `--bg-vol`. No background removal needed. |
 | `./scripts/bg-composite.sh <video.mp4> <url-or-image>` | Remove background from video, screenshot a URL (or use a local image), composite subject over it, render 9:16 MP4. Output: `projects/<slug>/renders/composite.mp4`. |
 | `./scripts/article-composite.sh <video.mp4> <url> "<phrase>" [--mode background\|overlay]` | Screenshot a news article with a yellow marker highlight on a specific phrase, then composite your video over it. `background` mode (default): article fills top of frame, you appear below. `overlay` mode: your footage plays full-frame, article slides in as a PiP panel. Output: `projects/<slug>/renders/article-composite.mp4`. |
 | `./scripts/render.py` | Patched render helper — use this instead of `tools/video-use/helpers/render.py`. Uses `ffmpeg-full` for ProRes 4444 alpha support and `format=auto` overlay compositing. After `./setup.sh`, copy: `cp scripts/render.py tools/video-use/helpers/render.py` |
+| `uv run python scripts/pip-composite.py --base <base_cut.mp4> --start <t> --end <t> --bg <image.png> --out <pip_clip.mp4>` | Cut Ian out of a video segment (birefnet-general model) and composite him over an article screenshot or any image background. Output is a ready-to-splice MP4. Splice into final with `-itsoffset` + trim/concat (never overlay+enable). See script header for full splice command. |
 
 ## What NOT to do
 
