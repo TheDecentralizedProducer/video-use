@@ -89,3 +89,6 @@ master.srt
 takes_packed.md
 edl.json
 project.md
+
+# Non-standard project folders (raw footage not in standard layout)
+projects/Test_Night_shoot/
