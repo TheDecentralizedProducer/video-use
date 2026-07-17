@@ -101,6 +101,20 @@ uv run python tools/video-use/helpers/render.py \
 The output always goes to `edit/`, never back into `raw/`.
 Never downscale. Pass source resolution through; if ffmpeg needs explicit size, use `-vf scale=trunc(iw/2)*2:trunc(ih/2)*2` to fix odd dimensions only.
 
+### Step 3b: Load pillar edit style (if brief has a `style` field)
+
+When a project brief or approved script JSON contains a `"style"` field, load the matching edit template from the DPC command center before proposing cuts.
+
+**Important:** The style guides describe the reference creator's exact setup. Ian records differently. Apply the **structural principle and cadence**, not the literal setup. The tools to build each mode are already in this repo — see the "Adapted for Ian" section at the bottom of each style guide file.
+
+| `style` value | Edit template file | Key rules |
+|--------------|-------------------|-----------|
+| `atlas-berry` | `~/dpc-command-center/styles/atlas-berry.md` | 6 visual modes cycling at ~3.7s avg. Mode 1 (clean talking head) = section break. Mode 2 (talking head + floating card) = when naming a source/article. Mode 4 (PiP + B-roll) = analytical core, B-roll matches words literally. Mode 5 (PiP + article screenshot) = citing a specific source. Mode 6 (PiP + custom diagram) = mechanism explanation. Kinetic subtitles always on; stacked text for lists. Topic tag pill at top during all PiP modes. Card/tweet bars persist 2–4 sentences. |
+| `lex-nova` | `~/dpc-command-center/styles/lex-nova.md` | Left-side evidence panel (~40% of frame) updates as story progresses. She holds right ~60%. Every named entity gets a panel card: headshot · poster · year label · cast photo · article headline · document icon · org logo. Panel swaps when story pivots to new film/org. Panel CLEARS when lesson section begins. Kinetic subtitles: green=names, purple=industry terms. CTA = brand logo top-right on empty panel. |
+| `kristen-pepper` | `~/dpc-command-center/styles/kristen-pepper.md` | 4 states: (1) Dual poster open with pre-roll topic card → (2) Poster zoom full-bleed 2–3s transition → (3) Split screen: clip top 40% / her bottom 60%, clips hold 15–30s each → (4) Clean full face for conclusion. Zero text overlays added in post. Each clip runs continuously while she talks over it — do not cut rapidly. |
+
+Apply the matching template when building the EDL and proposing motion graphics in Step 4. If no `style` field is present, proceed with default editorial judgment.
+
 ### Step 4: Suggest motion graphics (2–3 spots)
 
 After the cut is done, scan the transcript for strong candidates:
